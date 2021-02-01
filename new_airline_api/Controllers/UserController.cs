@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace new_airline_api.Controllers
 {
-    public class SignUpController : ApiController
+    public class UserController : ApiController
     {
         private new_airlineEntities entity = new new_airlineEntities();
         public HttpResponseMessage signup(User_Master user)
