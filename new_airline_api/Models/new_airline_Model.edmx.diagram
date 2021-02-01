@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d4c23800b3d84d2c93c1e44b5aed6072" Name="Diagram1">
+        <EntityTypeShape EntityType="new_airlineModel.admin" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="new_airlineModel.cancellation" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="new_airlineModel.credit_card" Width="1.5" PointX="6" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="new_airlineModel.flight_cost" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="new_airlineModel.Flight_Master" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="new_airlineModel.flight_schedule" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="new_airlineModel.passenger" Width="1.5" PointX="8.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="new_airlineModel.Transaction" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="new_airlineModel.User_Master" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="new_airlineModel.FK__cancellat__trans__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="new_airlineModel.FK__credit_ca__useri__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="new_airlineModel.FK__flight_co__fligh__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="new_airlineModel.FK__flight_sc__fligh__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="new_airlineModel.FK__Transacti__fligh__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="new_airlineModel.FK__passenger__trans__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="new_airlineModel.FK__Transacti__user___3B75D760" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
