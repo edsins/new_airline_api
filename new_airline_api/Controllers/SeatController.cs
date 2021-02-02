@@ -16,6 +16,6 @@ namespace new_airline_api.Controllers
         {
             return Ok(entity.sp_getseats(flightnumber, date));
         }
-       
+      
     }
 }
