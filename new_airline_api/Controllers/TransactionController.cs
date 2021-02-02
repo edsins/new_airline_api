@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace new_airline_api.Controllers
 {
-    public class SeatController : ApiController
+    public class TransactionController : ApiController
     {
         private new_airlineEntities db = new new_airlineEntities();
         public IHttpActionResult PostTransaction(trans_pass tp)
