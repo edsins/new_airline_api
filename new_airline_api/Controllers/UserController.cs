@@ -15,11 +15,11 @@ namespace new_airline_api.Controllers
         {
             User_Master obj = entity.User_Master.Where(x => x.email_id == user.email_id).FirstOrDefault();
             if (obj == null)
-            {
+            { 
+                user.password= BCrypt.Net.BCrypt.HashPassword(user.password);
                 entity.User_Master.Add(user);
                 entity.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.OK, user);
-
             }
 
 
