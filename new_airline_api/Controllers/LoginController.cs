@@ -12,13 +12,13 @@ namespace new_airline_api.Controllers
     {
         private new_airlineEntities db = new new_airlineEntities();
         [HttpGet]
-        public IHttpActionResult loginvalid(string email, string password)
+        public IHttpActionResult loginvalid(userlogin u)
         {
-            var user = db.User_Master.Where(x => x.email_id == email).FirstOrDefault();
+            var user = db.User_Master.Where(x => x.email_id == u.email).FirstOrDefault();
 
             if (user != null)
             {
-                bool isValid = BCrypt.Net.BCrypt.Verify(password, user.password);
+                bool isValid = BCrypt.Net.BCrypt.Verify(u.password, user.password);
                 if (!isValid)
                 {
                     return BadRequest("Invalid Credentials");

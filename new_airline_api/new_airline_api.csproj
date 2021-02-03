@@ -243,6 +243,7 @@
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\trans_pass.cs" />
+    <Compile Include="Models\userlogin.cs" />
     <Compile Include="Models\User_Master.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
