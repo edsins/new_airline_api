@@ -12,7 +12,7 @@ using new_airline_api.Models;
 
 namespace new_airline_api.Controllers
 {
-    public class Flight_MasterController : ApiController
+    public class AdminController : ApiController
     {
         private new_airlineEntities db = new new_airlineEntities();
 
