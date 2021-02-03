@@ -11,7 +11,7 @@ namespace new_airline_api.Controllers
     public class LoginController : ApiController
     {
         private new_airlineEntities db = new new_airlineEntities();
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult loginvalid(userlogin u)
         {
             var user = db.User_Master.Where(x => x.email_id == u.email).FirstOrDefault();
