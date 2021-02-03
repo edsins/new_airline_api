@@ -8,7 +8,7 @@ namespace new_airline_api.Models
     public class Forgotpassword
     {
         public string email { get; set; }
-        public string question { get; set; }
-        public string answer { get; set; }
+        public string security_question { get; set; }
+        public string security_answer { get; set; }
     }
 }

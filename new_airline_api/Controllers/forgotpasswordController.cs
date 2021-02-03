@@ -19,7 +19,7 @@ namespace new_airline_api.Controllers
             var user = db.User_Master.Where(x => x.email_id == fp.email).FirstOrDefault();
             if(user!=null)
             {   
-                if(user.security_question==(fp.question+fp.answer))
+                if(user.security_question==fp.security_question && user.security_answer==fp.security_answer)
                 {
                     return Ok("valid");
                 }
