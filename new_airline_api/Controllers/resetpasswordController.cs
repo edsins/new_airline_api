@@ -20,8 +20,14 @@ namespace new_airline_api.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             if (user != null)
             {
+                var userobj = db.user_otp.Where(x => x.userid == user.userid).FirstOrDefault();
+                if(userobj==null)
+                {
+                    return BadRequest("NOT ALLOWED");
+                }
                 user.password = BCrypt.Net.BCrypt.HashPassword(u.password);
                 db.Entry(user).State = EntityState.Modified;
                 try
@@ -33,7 +39,7 @@ namespace new_airline_api.Controllers
                     return NotFound();
                 }
                 
-                return Ok(user);
+                return Ok("Password Changed");
 
             }
             else
