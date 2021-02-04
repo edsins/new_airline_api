@@ -23,7 +23,7 @@ namespace new_airline_api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = db.User_Master.Where(x => x.email_id == tp.contact_email).FirstOrDefault();
+            var user = db.User_Master.Where(x => x.email_id == tp.email).FirstOrDefault();
             if(user==null)
             {
                 return BadRequest("User does not Exists");
