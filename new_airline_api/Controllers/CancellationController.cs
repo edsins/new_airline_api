@@ -13,6 +13,7 @@ namespace new_airline_api.Controllers
     public class CancellationController : ApiController
     {
         private new_airlineEntities db = new new_airlineEntities();
+        [HttpPost]
         public IHttpActionResult Cancelreservation(int transid, DateTime cancel_date)
         {
             var trans = db.Transactions.Where(x => x.transaction_id == transid).FirstOrDefault();
