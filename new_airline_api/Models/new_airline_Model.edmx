@@ -69,7 +69,7 @@
           <Property Name="age" Type="int" Nullable="false" />
           <Property Name="contact" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="seatno" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Transactions">
           <Key>
@@ -98,7 +98,7 @@
           <Property Name="email_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="mobile" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="security_question" Type="varchar" MaxLength="250" />
-          <Property Name="security_answer" Type="varchar" MaxLength="250" />
+          <Property Name="security_answer" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK__cancellat__trans__44FF419A">
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="0..1" />
@@ -317,7 +317,7 @@
           <Property Name="age" Type="Int32" Nullable="false" />
           <Property Name="contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="seatno" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK__passenger__trans__3F466844" FromRole="passengers" ToRole="Transactions" />
         </EntityType>
         <EntityType Name="Transaction">
@@ -353,7 +353,7 @@
           <NavigationProperty Name="credit_card" Relationship="Self.FK__credit_ca__useri__4222D4EF" FromRole="User_Master" ToRole="credit_card" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__user___3B75D760" FromRole="User_Master" ToRole="Transactions" />
           <Property Name="security_question" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="security_answer" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="security_answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__cancellat__trans__44FF419A">
           <End Role="Transactions" Type="Self.Transaction" Multiplicity="0..1" />

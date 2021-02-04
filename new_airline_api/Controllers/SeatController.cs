@@ -14,6 +14,10 @@ namespace new_airline_api.Controllers
         [HttpGet]
         public IHttpActionResult getseats(int flightnumber, System.DateTime date)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             return Ok(entity.sp_getseats(flightnumber, date));
         }
       

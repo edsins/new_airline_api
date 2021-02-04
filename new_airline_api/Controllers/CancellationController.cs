@@ -16,6 +16,10 @@ namespace new_airline_api.Controllers
         public IHttpActionResult Cancelreservation(int transid, DateTime cancel_date, decimal cancel_amount)
         {
             var trans = db.Transactions.Where(x => x.transaction_id == transid).FirstOrDefault();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (trans != null)
             {
                 trans.cancellation_status = true;
@@ -37,8 +41,8 @@ namespace new_airline_api.Controllers
                     db.SaveChanges();
                 }
                 catch (DbUpdateException)
-                {
-                    throw;
+                { 
+                    return NotFound();
                 }
                 return Ok(can);
             }

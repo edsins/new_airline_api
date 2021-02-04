@@ -14,11 +14,23 @@ namespace new_airline_api.Controllers
         [HttpGet]
         public IHttpActionResult getprice(int flightnumber, String seatclass)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var flight = entity.flight_cost.Where(x => x.flight_number == flightnumber).FirstOrDefault();
-            if (seatclass.Contains("business"))
-                return Ok(flight.business_price);
+            if (flight == null)
+            {
+                return BadRequest("Flight not Found");
+            }
             else
-                return Ok(flight.economy_price);
+            {
+                if (seatclass.Contains("business"))
+                    return Ok(flight.business_price);
+                else
+                    return Ok(flight.economy_price);
+            }
+                
 
         }
     }

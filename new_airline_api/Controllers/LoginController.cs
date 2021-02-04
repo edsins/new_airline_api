@@ -15,7 +15,10 @@ namespace new_airline_api.Controllers
         public IHttpActionResult loginvalid(userlogin u)
         {
             var user = db.User_Master.Where(x => x.email_id == u.email).FirstOrDefault();
-
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (user != null)
             {
                 bool isValid = BCrypt.Net.BCrypt.Verify(u.password, user.password);

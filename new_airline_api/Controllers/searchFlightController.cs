@@ -14,6 +14,10 @@ namespace new_airline_api.Controllers
         [HttpGet]
         public IHttpActionResult searchflight(string departure, string arrival, string day, System.DateTime date, int seats)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             List<new_airline_api.Models.sp_searchflight_Result> list = new List<new_airline_api.Models.sp_searchflight_Result>();
             var b = entity.sp_searchflight(departure, arrival, date, seats, day);
             foreach (var a in b)

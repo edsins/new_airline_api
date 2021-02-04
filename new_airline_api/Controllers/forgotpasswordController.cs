@@ -17,7 +17,11 @@ namespace new_airline_api.Controllers
         public IHttpActionResult forgotpassword(Forgotpassword fp)
         {
             var user = db.User_Master.Where(x => x.email_id == fp.email).FirstOrDefault();
-            if(user!=null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (user!=null)
             {   
                 if(user.security_question==fp.security_question && user.security_answer==fp.security_answer)
                 {

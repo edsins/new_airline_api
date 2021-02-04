@@ -15,11 +15,23 @@ namespace new_airline_api.Controllers
         public IHttpActionResult resetpassword(userlogin u)
         {
             var user = db.User_Master.Where(x => x.email_id == u.email).FirstOrDefault();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (user != null)
             {
                 user.password = BCrypt.Net.BCrypt.HashPassword(u.password);
                 db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    return NotFound();
+                }
+                
                 return Ok(user);
 
             }

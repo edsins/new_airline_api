@@ -14,15 +14,25 @@ namespace new_airline_api.Controllers
         public HttpResponseMessage signup(User_Master user)
         {
             User_Master obj = entity.User_Master.Where(x => x.email_id == user.email_id).FirstOrDefault();
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
             if (obj == null)
             { 
                 user.password= BCrypt.Net.BCrypt.HashPassword(user.password);
                 entity.User_Master.Add(user);
-                entity.SaveChanges();
+                try
+                {
+                    entity.SaveChanges();
+                }
+                catch
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not Found");
+                }
+                
                 return Request.CreateResponse(HttpStatusCode.OK, user);
             }
-
-
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Email-Id already Exists");
         }
     }
