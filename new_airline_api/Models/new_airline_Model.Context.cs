@@ -138,5 +138,14 @@ namespace new_airline_api.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_searchflight_Result>("sp_searchflight", departureParameter, arrivalParameter, traveldateParameter, no_of_seatsParameter, dayParameter);
         }
+    
+        public virtual ObjectResult<sp_booked_history_Result> sp_booked_history(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_booked_history_Result>("sp_booked_history", useridParameter);
+        }
     }
 }
