@@ -69,7 +69,7 @@
           <Property Name="age" Type="int" Nullable="false" />
           <Property Name="contact" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="seatno" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Transactions">
           <Key>
@@ -98,7 +98,7 @@
           <Property Name="email_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="mobile" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="security_question" Type="varchar" MaxLength="250" />
-          <Property Name="security_answer" Type="varchar" MaxLength="50" />
+          <Property Name="security_answer" Type="varchar" MaxLength="250" />
         </EntityType>
         <Association Name="FK__cancellat__trans__44FF419A">
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="0..1" />
@@ -187,17 +187,6 @@
         <Function Name="fetchseat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="flight_number" Type="int" Mode="In" />
           <Parameter Name="booking_date" Type="datetime" Mode="In" />
-        </Function>
-        <Function Name="searchflightbyday" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="departure" Type="varchar" Mode="In" />
-          <Parameter Name="arrival" Type="varchar" Mode="In" />
-          <Parameter Name="day" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="searchflightbynumberofseats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="departure" Type="varchar" Mode="In" />
-          <Parameter Name="arrival" Type="varchar" Mode="In" />
-          <Parameter Name="traveldate" Type="date" Mode="In" />
-          <Parameter Name="no_of_seats" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Addflightschedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="flightno" Type="int" Mode="In" />
@@ -328,7 +317,7 @@
           <Property Name="age" Type="Int32" Nullable="false" />
           <Property Name="contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="seatno" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK__passenger__trans__3F466844" FromRole="passengers" ToRole="Transactions" />
         </EntityType>
         <EntityType Name="Transaction">
@@ -364,7 +353,7 @@
           <NavigationProperty Name="credit_card" Relationship="Self.FK__credit_ca__useri__4222D4EF" FromRole="User_Master" ToRole="credit_card" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__user___3B75D760" FromRole="User_Master" ToRole="Transactions" />
           <Property Name="security_question" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="security_answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="security_answer" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__cancellat__trans__44FF419A">
           <End Role="Transactions" Type="Self.Transaction" Multiplicity="0..1" />
@@ -651,21 +640,6 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="fetchseat" FunctionName="new_airlineModel.Store.fetchseat" />
-          <FunctionImportMapping FunctionImportName="searchflightbyday" FunctionName="new_airlineModel.Store.searchflightbyday">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="new_airlineModel.searchflightbyday_Result">
-                <ScalarProperty Name="departure_location" ColumnName="departure_location" />
-                <ScalarProperty Name="arrival_location" ColumnName="arrival_location" />
-                <ScalarProperty Name="arrival_time" ColumnName="arrival_time" />
-                <ScalarProperty Name="departure_time" ColumnName="departure_time" />
-                <ScalarProperty Name="duration" ColumnName="duration" />
-                <ScalarProperty Name="flight_number" ColumnName="flight_number" />
-                <ScalarProperty Name="business_price" ColumnName="business_price" />
-                <ScalarProperty Name="economy_price" ColumnName="economy_price" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="searchflightbynumberofseats" FunctionName="new_airlineModel.Store.searchflightbynumberofseats" />
           <FunctionImportMapping FunctionImportName="sp_Addflightschedule" FunctionName="new_airlineModel.Store.sp_Addflightschedule" />
           <FunctionImportMapping FunctionImportName="sp_getseats" FunctionName="new_airlineModel.Store.sp_getseats" />
           <FunctionImportMapping FunctionImportName="sp_searchflight" FunctionName="new_airlineModel.Store.sp_searchflight">

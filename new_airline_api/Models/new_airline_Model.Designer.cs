@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Aditya\source\repos\new_airline_api\new_airline_api\Models\new_airline_Model.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Anurag Agrawal\Desktop\web development\new_airline_api\new_airline_api\Models\new_airline_Model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

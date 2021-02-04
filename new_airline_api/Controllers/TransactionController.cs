@@ -16,7 +16,7 @@ namespace new_airline_api.Controllers
         public IHttpActionResult PostTransaction(trans_pass tp)
         {
             Transaction transaction = new Transaction();
-            passenger Passen = new passenger();
+            passenger Passenger_obj = new passenger();
             credit_card card = new credit_card();
             
             var user = db.User_Master.Where(x => x.email_id == tp.email).FirstOrDefault();
@@ -32,23 +32,20 @@ namespace new_airline_api.Controllers
             card= tp.carddetails;
             card.userid = user.userid;
             db.credit_card.Add(card);
+            db.SaveChanges();
             var last_trans = db.Transactions.ToList().Last();
             for (int i = 0; i < tp.passengers.Length; i++)
             {
-                Passen = tp.passengers[i];
-                Passen.transaction_id = last_trans.transaction_id;
-                Passen.email = tp.email;
-                Passen.seatno = tp.seatarray[i];
-                db.passengers.Add(Passen);
-            }
-            try
-            {
+                Passenger_obj.transaction_id = last_trans.transaction_id;
+                Passenger_obj.email = tp.contact_email;
+                Passenger_obj.contact = tp.contact_no;
+                Passenger_obj.seatno = tp.seatarray[i];
+                Passenger_obj.Name = tp.passengers[i].firstname;
+                Passenger_obj.age = tp.passengers[i].age;
+                db.passengers.Add(Passenger_obj);
                 db.SaveChanges();
             }
-            catch (DbUpdateException)
-            {
-                throw;
-            }
+           
             return CreatedAtRoute("DefaultApi", new { id = transaction.transaction_id }, transaction);
         }
     }

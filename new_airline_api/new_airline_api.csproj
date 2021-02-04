@@ -240,6 +240,7 @@
     <Compile Include="Models\passenger.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\passengerdetails.cs" />
     <Compile Include="Models\searchflightbyday_Result.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>

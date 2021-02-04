@@ -15,9 +15,15 @@ namespace new_airline_api.Models
         public System.DateTime travel_date { get; set; }
         public string seat_type { get; set; }
         public string email { get; set; }
+
+        public string contact_email { get; set; }
+
+        public string contact_no { get; set; }
+
+
         public decimal amount { get; set; }
         public credit_card carddetails { get; set; }
         public string[] seatarray { get; set; }
-        public passenger[] passengers { get; set; }
+        public passengerdetails[] passengers { get; set; }
     }
 }
