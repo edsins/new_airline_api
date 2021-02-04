@@ -14,7 +14,6 @@ namespace new_airline_api.Models
         public int number_of_seats { get; set; }
         public System.DateTime travel_date { get; set; }
         public string seat_type { get; set; }
-        public string email { get; set; }
 
         public string contact_email { get; set; }
 
