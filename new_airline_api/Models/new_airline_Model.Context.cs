@@ -36,6 +36,7 @@ namespace new_airline_api.Models
         public virtual DbSet<passenger> passengers { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<User_Master> User_Master { get; set; }
+        public virtual DbSet<user_otp> user_otp { get; set; }
     
         public virtual ObjectResult<string> fetchseat(Nullable<int> flight_number, Nullable<System.DateTime> booking_date)
         {

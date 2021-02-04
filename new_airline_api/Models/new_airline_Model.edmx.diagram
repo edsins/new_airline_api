@@ -21,6 +21,8 @@
         <AssociationConnector Association="new_airlineModel.FK__Transacti__fligh__3C69FB99" ManuallyRouted="false" />
         <AssociationConnector Association="new_airlineModel.FK__passenger__trans__3F466844" ManuallyRouted="false" />
         <AssociationConnector Association="new_airlineModel.FK__Transacti__user___3B75D760" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="new_airlineModel.user_otp" Width="1.5" PointX="6" PointY="10.625" />
+        <AssociationConnector Association="new_airlineModel.FK__user_otp__userid__06CD04F7" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

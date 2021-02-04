@@ -19,6 +19,7 @@ namespace new_airline_api.Models
         {
             this.credit_card = new HashSet<credit_card>();
             this.Transactions = new HashSet<Transaction>();
+            this.user_otp = new HashSet<user_otp>();
         }
     
         public int userid { get; set; }
@@ -36,5 +37,7 @@ namespace new_airline_api.Models
         public virtual ICollection<credit_card> credit_card { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user_otp> user_otp { get; set; }
     }
 }

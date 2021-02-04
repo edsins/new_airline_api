@@ -100,6 +100,14 @@
           <Property Name="security_question" Type="varchar" MaxLength="250" />
           <Property Name="security_answer" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="user_otp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="otp" Type="int" Nullable="false" />
+          <Property Name="userid" Type="int" />
+        </EntityType>
         <Association Name="FK__cancellat__trans__44FF419A">
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="0..1" />
           <End Role="cancellation" Type="Self.cancellation" Multiplicity="*" />
@@ -184,6 +192,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__user_otp__userid__09A971A2">
+          <End Role="User_Master" Type="Self.User_Master" Multiplicity="0..1" />
+          <End Role="user_otp" Type="Self.user_otp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Master">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="user_otp">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fetchseat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="flight_number" Type="int" Mode="In" />
           <Parameter Name="booking_date" Type="datetime" Mode="In" />
@@ -222,6 +242,7 @@
           <EntitySet Name="passengers" EntityType="Self.passengers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Master" EntityType="Self.User_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_otp" EntityType="Self.user_otp" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__cancellat__trans__44FF419A" Association="Self.FK__cancellat__trans__44FF419A">
             <End Role="Transactions" EntitySet="Transactions" />
             <End Role="cancellation" EntitySet="cancellation" />
@@ -249,6 +270,10 @@
           <AssociationSet Name="FK__Transacti__user___3B75D760" Association="Self.FK__Transacti__user___3B75D760">
             <End Role="User_Master" EntitySet="User_Master" />
             <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__user_otp__userid__09A971A2" Association="Self.FK__user_otp__userid__09A971A2">
+            <End Role="User_Master" EntitySet="User_Master" />
+            <End Role="user_otp" EntitySet="user_otp" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -363,6 +388,7 @@
           <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__user___3B75D760" FromRole="User_Master" ToRole="Transactions" />
           <Property Name="security_question" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="security_answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user_otp" Relationship="new_airlineModel.FK__user_otp__userid__06CD04F7" FromRole="User_Master" ToRole="user_otp" />
         </EntityType>
         <Association Name="FK__cancellat__trans__44FF419A">
           <End Role="Transactions" Type="Self.Transaction" Multiplicity="0..1" />
@@ -523,8 +549,13 @@
           <Parameter Name="transid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_cancel_booked" ReturnType="Collection(new_airlineModel.sp_cancel_booked_Result)">
-            <Parameter Name="userid" Mode="In" Type="Int32" />
+          <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="user_otp" EntityType="new_airlineModel.user_otp" />
+          <AssociationSet Name="FK__user_otp__userid__06CD04F7" Association="new_airlineModel.FK__user_otp__userid__06CD04F7">
+            <End Role="User_Master" EntitySet="User_Master" />
+            <End Role="user_otp" EntitySet="user_otp" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="searchflightbyday_Result">
           <Property Type="String" Name="departure_location" Nullable="false" MaxLength="20" />
@@ -574,6 +605,27 @@
           <Property Type="String" Name="departure_location" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="arrival_location" Nullable="false" MaxLength="20" />
         </ComplexType>
+        <EntityType Name="user_otp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="otp" Type="Int32" Nullable="false" />
+          <Property Name="userid" Type="Int32" />
+          <NavigationProperty Name="User_Master" Relationship="new_airlineModel.FK__user_otp__userid__06CD04F7" FromRole="user_otp" ToRole="User_Master" />
+        </EntityType>
+        <Association Name="FK__user_otp__userid__06CD04F7">
+          <End Type="new_airlineModel.User_Master" Role="User_Master" Multiplicity="0..1" />
+          <End Type="new_airlineModel.user_otp" Role="user_otp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Master">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="user_otp">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -738,6 +790,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="user_otp">
+            <EntityTypeMapping TypeName="new_airlineModel.user_otp">
+              <MappingFragment StoreEntitySet="user_otp">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="otp" ColumnName="otp" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

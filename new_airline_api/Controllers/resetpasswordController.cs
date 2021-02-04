@@ -12,6 +12,7 @@ namespace new_airline_api.Controllers
     public class resetpasswordController : ApiController
     {
         private new_airlineEntities db = new new_airlineEntities();
+        [HttpPost]
         public IHttpActionResult resetpassword(userlogin u)
         {
             var user = db.User_Master.Where(x => x.email_id == u.email).FirstOrDefault();
