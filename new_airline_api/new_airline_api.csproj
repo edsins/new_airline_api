@@ -189,6 +189,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BookHistoryController.cs" />
+    <Compile Include="Controllers\CancelHistoryController.cs" />
     <Compile Include="Controllers\CancellationController.cs" />
     <Compile Include="Controllers\forgotpasswordController.cs" />
     <Compile Include="Controllers\getpriceController.cs" />
@@ -206,6 +207,8 @@
     <Compile Include="Models\admin.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\bookHistory.cs" />
+    <Compile Include="Models\cancelbook.cs" />
     <Compile Include="Models\cancellation.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
@@ -246,6 +249,9 @@
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_booked_history_Result.cs">
+      <DependentUpon>new_airline_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_cancel_booked_Result.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_searchflight_Result.cs">

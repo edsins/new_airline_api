@@ -30,8 +30,6 @@ namespace new_airline_api.Controllers
                 else
                     return Ok(flight.economy_price);
             }
-                
-
         }
     }
 }

@@ -195,6 +195,9 @@
         <Function Name="sp_booked_history" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_cancel_booked" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_getseats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="flight_number" Type="int" Mode="In" />
           <Parameter Name="traveldate" Type="date" Mode="In" />
@@ -205,6 +208,9 @@
           <Parameter Name="traveldate" Type="date" Mode="In" />
           <Parameter Name="no_of_seats" Type="int" Mode="In" />
           <Parameter Name="day" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_seatsbooked" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="transid" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="new_airlineModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
@@ -511,6 +517,12 @@
             <Parameter Name="day" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_booked_history" ReturnType="Collection(new_airlineModel.sp_booked_history_Result)">
+          <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_seatsbooked" ReturnType="Collection(String)">
+          <Parameter Name="transid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_cancel_booked" ReturnType="Collection(new_airlineModel.sp_cancel_booked_Result)">
             <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -549,6 +561,18 @@
           <Property Type="Time" Name="departure_time" Nullable="false" />
           <Property Type="Time" Name="arrival_time" Nullable="false" />
           <Property Type="Time" Name="duration" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_cancel_booked_Result">
+          <Property Type="Int32" Name="transaction_id" Nullable="false" />
+          <Property Type="DateTime" Name="booking_date" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="number_of_seats" Nullable="false" />
+          <Property Type="DateTime" Name="travel_date" Nullable="false" Precision="23" />
+          <Property Type="String" Name="seat_type" Nullable="false" MaxLength="10" />
+          <Property Type="Boolean" Name="cancellation_status" Nullable="false" />
+          <Property Type="Decimal" Name="cancellation_amount" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="flight_number" Nullable="false" />
+          <Property Type="String" Name="departure_location" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="arrival_location" Nullable="false" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -694,6 +718,23 @@
                 <ScalarProperty Name="departure_time" ColumnName="departure_time" />
                 <ScalarProperty Name="arrival_time" ColumnName="arrival_time" />
                 <ScalarProperty Name="duration" ColumnName="duration" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_seatsbooked" FunctionName="new_airlineModel.Store.sp_seatsbooked" />
+          <FunctionImportMapping FunctionImportName="sp_cancel_booked" FunctionName="new_airlineModel.Store.sp_cancel_booked">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="new_airlineModel.sp_cancel_booked_Result">
+                <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
+                <ScalarProperty Name="booking_date" ColumnName="booking_date" />
+                <ScalarProperty Name="number_of_seats" ColumnName="number_of_seats" />
+                <ScalarProperty Name="travel_date" ColumnName="travel_date" />
+                <ScalarProperty Name="seat_type" ColumnName="seat_type" />
+                <ScalarProperty Name="cancellation_status" ColumnName="cancellation_status" />
+                <ScalarProperty Name="cancellation_amount" ColumnName="cancellation_amount" />
+                <ScalarProperty Name="flight_number" ColumnName="flight_number" />
+                <ScalarProperty Name="departure_location" ColumnName="departure_location" />
+                <ScalarProperty Name="arrival_location" ColumnName="arrival_location" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
