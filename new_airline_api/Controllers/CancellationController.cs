@@ -13,7 +13,7 @@ namespace new_airline_api.Controllers
     public class CancellationController : ApiController
     {
         private new_airlineEntities db = new new_airlineEntities();
-        public IHttpActionResult Cancelreservation(int transid, DateTime cancel_date, decimal cancel_amount)
+        public IHttpActionResult Cancelreservation(int transid, DateTime cancel_date)
         {
             var trans = db.Transactions.Where(x => x.transaction_id == transid).FirstOrDefault();
             if (!ModelState.IsValid)
@@ -34,7 +34,7 @@ namespace new_airline_api.Controllers
                 cancellation can = new cancellation();
                 can.transaction_id = transid;
                 can.cancellation_date = cancel_date;
-                can.cancellation_amount = cancel_amount;
+                can.cancellation_amount = trans.amount / 4;
                 db.cancellations.Add(can);
                 try
                 {
