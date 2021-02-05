@@ -275,6 +275,7 @@
     <Compile Include="Models\user_otp.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\validateotp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
