@@ -30,8 +30,6 @@ namespace new_airline_api.Models
         public string password { get; set; }
         public string email_id { get; set; }
         public string mobile { get; set; }
-        public string security_question { get; set; }
-        public string security_answer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<credit_card> credit_card { get; set; }

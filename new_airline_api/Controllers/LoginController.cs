@@ -12,27 +12,35 @@ namespace new_airline_api.Controllers
     {
         private new_airlineEntities db = new new_airlineEntities();
         [HttpPost]
-        public IHttpActionResult loginvalid(userlogin u)
+        public IHttpActionResult loginvalid(Userlogin u)
         {
-            var user = db.User_Master.Where(x => x.email_id == u.email).FirstOrDefault();
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
-            if (user != null)
-            {
-                bool isValid = BCrypt.Net.BCrypt.Verify(u.password, user.password);
-                if (!isValid)
+                var user = db.User_Master.Where(x => x.email_id == u.email).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                if (user != null)
+                {
+                    bool isValid = BCrypt.Net.BCrypt.Verify(u.password, user.password);
+                    if (!isValid)
+                    {
+                        return BadRequest("Invalid Credentials");
+                    }
+
+                }
+                else
                 {
                     return BadRequest("Invalid Credentials");
                 }
-
+                return Ok("Valid");
             }
-            else
+            catch(Exception ex)
             {
-                return BadRequest("Invalid Credentials");
+                return BadRequest(ex.ToString());
             }
-            return Ok("Valid");
+
         }
     }
 }

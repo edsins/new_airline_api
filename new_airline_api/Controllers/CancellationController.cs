@@ -16,42 +16,50 @@ namespace new_airline_api.Controllers
         [HttpPost]
         public IHttpActionResult Cancelreservation(int transid, DateTime cancel_date)
         {
-            var trans = db.Transactions.Where(x => x.transaction_id == transid).FirstOrDefault();
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
-            if (trans != null)
-            {
-                trans.cancellation_status = true;
-                db.Entry(trans).State = EntityState.Modified;
-                var pass = from p in db.passengers
-                           where p.transaction_id == transid
-                           select p;
-                foreach (var p in pass)
+                var trans = db.Transactions.Where(x => x.transaction_id == transid).FirstOrDefault();
+                if (!ModelState.IsValid)
                 {
-                    db.passengers.Remove(p);
+                    return BadRequest(ModelState);
                 }
-                cancellation can = new cancellation();
-                can.transaction_id = transid;
-                can.cancellation_date = cancel_date;
-                can.cancellation_amount = trans.amount / 4;
-                db.cancellations.Add(can);
-                try
+                if (trans != null)
                 {
-                    db.SaveChanges();
+                    trans.cancellation_status = true;
+                    db.Entry(trans).State = EntityState.Modified;
+                    var pass = from p in db.passengers
+                               where p.transaction_id == transid
+                               select p;
+                    foreach (var p in pass)
+                    {
+                        db.passengers.Remove(p);
+                    }
+                    cancellation can = new cancellation();
+                    can.transaction_id = transid;
+                    can.cancellation_date = cancel_date;
+                    can.cancellation_amount = trans.amount / 4;
+                    db.cancellations.Add(can);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateException)
+                    { 
+                        return NotFound();
+                    }
+                    return Ok(can);
                 }
-                catch (DbUpdateException)
-                { 
-                    return NotFound();
-                }
-                return Ok(can);
-            }
-            else
-            {
-                return BadRequest("Transaction Id does not exist");
+                else
+                {
+                    return BadRequest("Transaction Id does not exist");
 
+                }
             }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+
         }
     }
 }

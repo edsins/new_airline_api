@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace new_airline_api.Controllers
 {
-    public class searchflightController : ApiController
+    public class SearchFlightController : ApiController
     {
         private new_airlineEntities entity = new new_airlineEntities();
         [HttpGet]
@@ -18,16 +18,24 @@ namespace new_airline_api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            List<new_airline_api.Models.sp_searchflight_Result> list = new List<new_airline_api.Models.sp_searchflight_Result>();
-            var b = entity.sp_searchflight(departure, arrival, date, seats, day);
-            foreach (var a in b)
+            try
             {
-                if (a.sum == null || Convert.ToInt32(a.sum) < Convert.ToInt32(180 - seats))
+                List<new_airline_api.Models.sp_searchflight_Result> list_of_flights = new List<new_airline_api.Models.sp_searchflight_Result>();
+                var searched_flights = entity.sp_searchflight(departure, arrival, date, seats, day);
+                foreach (var flight in searched_flights)
                 {
-                    list.Add(a);
+                    if (flight.sum == null || Convert.ToInt32(flight.sum) < Convert.ToInt32(120 - seats))
+                    {
+                        list_of_flights.Add(flight);
+                    }
                 }
+                return Ok(list_of_flights);
             }
-            return Ok(list);
+            catch(Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+
         }
     }
 }

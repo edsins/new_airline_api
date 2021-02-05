@@ -97,8 +97,6 @@
           <Property Name="password" Type="varchar" MaxLength="100" />
           <Property Name="email_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="mobile" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="security_question" Type="varchar" MaxLength="250" />
-          <Property Name="security_answer" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="user_otp">
           <Key>
@@ -386,8 +384,6 @@
           <Property Name="mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="credit_card" Relationship="Self.FK__credit_ca__useri__4222D4EF" FromRole="User_Master" ToRole="credit_card" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__user___3B75D760" FromRole="User_Master" ToRole="Transactions" />
-          <Property Name="security_question" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="security_answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="user_otp" Relationship="new_airlineModel.FK__user_otp__userid__06CD04F7" FromRole="User_Master" ToRole="user_otp" />
         </EntityType>
         <Association Name="FK__cancellat__trans__44FF419A">
@@ -723,8 +719,6 @@
           <EntitySetMapping Name="User_Master">
             <EntityTypeMapping TypeName="new_airlineModel.User_Master">
               <MappingFragment StoreEntitySet="User_Master">
-                <ScalarProperty Name="security_answer" ColumnName="security_answer" />
-                <ScalarProperty Name="security_question" ColumnName="security_question" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />

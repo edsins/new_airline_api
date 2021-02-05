@@ -5,7 +5,7 @@ using System.Web;
 
 namespace new_airline_api.Models
 {
-    public class trans_pass
+    public class Transaction_n_Passenger
     {
         public int transaction_id { get; set; }
         public Nullable<int> user_Id { get; set; }
@@ -24,6 +24,6 @@ namespace new_airline_api.Models
         public decimal amount { get; set; }
         public credit_card carddetails { get; set; }
         public string[] seatarray { get; set; }
-        public passengerdetails[] passengers { get; set; }
+        public PassengerDetails[] passengers { get; set; }
     }
 }

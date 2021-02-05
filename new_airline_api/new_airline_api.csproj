@@ -193,17 +193,17 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminOperationsController.cs" />
     <Compile Include="Controllers\AdminLoginController.cs" />
     <Compile Include="Controllers\BookHistoryController.cs" />
     <Compile Include="Controllers\CancelHistoryController.cs" />
     <Compile Include="Controllers\CancellationController.cs" />
-    <Compile Include="Controllers\forgotpasswordController.cs" />
-    <Compile Include="Controllers\getpriceController.cs" />
+    <Compile Include="Controllers\ForgotpasswordController.cs" />
+    <Compile Include="Controllers\GetpriceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\resetpasswordController.cs" />
-    <Compile Include="Controllers\searchflightController.cs" />
+    <Compile Include="Controllers\ResetPasswordController.cs" />
+    <Compile Include="Controllers\SearchFlightController.cs" />
     <Compile Include="Controllers\SeatController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -215,8 +215,8 @@
     <Compile Include="Models\admin.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\bookHistory.cs" />
-    <Compile Include="Models\cancelbook.cs" />
+    <Compile Include="Models\BookHistory.cs" />
+    <Compile Include="Models\CancelHistory.cs" />
     <Compile Include="Models\cancellation.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
@@ -229,7 +229,7 @@
     <Compile Include="Models\Flight_Master.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\flight_master_schedule.cs" />
+    <Compile Include="Models\FlightMaster_n_Schedule.cs" />
     <Compile Include="Models\flight_schedule.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
@@ -252,7 +252,7 @@
     <Compile Include="Models\passenger.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\passengerdetails.cs" />
+    <Compile Include="Models\PassengerDetails.cs" />
     <Compile Include="Models\searchflightbyday_Result.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
@@ -268,15 +268,15 @@
     <Compile Include="Models\Transaction.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\trans_pass.cs" />
-    <Compile Include="Models\userlogin.cs" />
+    <Compile Include="Models\Transaction_n_Passenger.cs" />
+    <Compile Include="Models\Userlogin.cs" />
     <Compile Include="Models\User_Master.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user_otp.cs">
       <DependentUpon>new_airline_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\validateotp.cs" />
+    <Compile Include="Models\ValidateOTP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

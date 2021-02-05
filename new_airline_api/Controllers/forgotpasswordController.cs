@@ -12,11 +12,11 @@ using System.Web.Http;
 
 namespace new_airline_api.Controllers
 {
-    public class forgotpasswordController : ApiController
+    public class ForgotpasswordController : ApiController
     {
         private new_airlineEntities db = new new_airlineEntities();
         [HttpPost]
-        public IHttpActionResult forgotpassword(Forgotpassword fp)
+        public IHttpActionResult forgotpassword(Forgotpassword forgotpassword)
         {
             
             if (!ModelState.IsValid)
@@ -26,18 +26,18 @@ namespace new_airline_api.Controllers
             
             try
             {
-                Random r = new Random();
-                int OTP = r.Next(1000, 9999);
-                var user = db.User_Master.Where(x => x.email_id == fp.email).FirstOrDefault();
+                Random random_number = new Random();
+                int OTP = random_number.Next(1000, 9999);
+                var user = db.User_Master.Where(x => x.email_id == forgotpassword.email).FirstOrDefault();
                 if(user==null)
                 {
                     return BadRequest("user doesnot exist");
                 }
                 
-                var u = db.user_otp.Where(x => x.userid == user.userid).FirstOrDefault();
-                if(u!=null)
+                var user_in_otp = db.user_otp.Where(x => x.userid == user.userid).FirstOrDefault();
+                if(user_in_otp != null)
                 { 
-                    db.user_otp.Remove(u);
+                    db.user_otp.Remove(user_in_otp);
                     try
                     {
                         db.SaveChanges();
@@ -66,7 +66,7 @@ namespace new_airline_api.Controllers
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
                 mail.From = new MailAddress("edsins007@gmail.com");
-                mail.To.Add(fp.email);
+                mail.To.Add(forgotpassword.email);
                 mail.Subject = "Airlines OTP";
                 mail.Body = OTP.ToString();
 
@@ -75,7 +75,7 @@ namespace new_airline_api.Controllers
                 SmtpServer.EnableSsl = true;
 
                 SmtpServer.Send(mail);
-                return Ok("mail Sent");
+                return Ok("Mail Sent");
             }
             catch (Exception ex)
             {

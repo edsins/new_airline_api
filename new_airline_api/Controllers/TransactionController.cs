@@ -13,63 +13,69 @@ namespace new_airline_api.Controllers
     public class TransactionController : ApiController
     {
         private new_airlineEntities db = new new_airlineEntities();
-        public IHttpActionResult PostTransaction(trans_pass tp)
+        public IHttpActionResult PostTransaction(Transaction_n_Passenger trans_pass)
         {
-            Transaction transaction = new Transaction();
-            passenger Passenger_obj = new passenger();
-            credit_card card = new credit_card();
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var user = db.User_Master.Where(x => x.email_id == tp.email).FirstOrDefault();
-            if(user==null)
-            {
-                return BadRequest("User does not Exists");
-            }
-           
-            transaction.flight_number = tp.flight_number;
-            transaction.booking_date = tp.booking_date;
-            transaction.number_of_seats = tp.number_of_seats;
-            transaction.seat_type = tp.seat_type;
-            transaction.travel_date = tp.travel_date;
-            transaction.amount = tp.amount;
-            transaction.user_Id = user.userid;
-            db.Transactions.Add(transaction);
             try
             {
-                db.SaveChanges();
-            }
-            catch
-            {
-                return NotFound();
-            }
-            card = tp.carddetails;
-            card.userid = user.userid;
-            db.credit_card.Add(card);
-            var last_trans = db.Transactions.ToList().Last();
-            for (int i = 0; i < tp.passengers.Length; i++)
-            {
-                Passenger_obj.transaction_id = last_trans.transaction_id;
-                Passenger_obj.email = tp.contact_email;
-                Passenger_obj.contact = tp.contact_no;
-                Passenger_obj.seatno = tp.seatarray[i];
-                Passenger_obj.Name = tp.passengers[i].firstname;
-                Passenger_obj.age = tp.passengers[i].age;
-                db.passengers.Add(Passenger_obj);
-            }
-            try
-            { 
-                db.SaveChanges();
-            }
-            catch
-            {
-                return NotFound();
-            }
-           
+                Transaction transaction = new Transaction();
+                passenger Passenger_obj = new passenger();
+                credit_card card = new credit_card();
+                var user = db.User_Master.Where(x => x.email_id == trans_pass.email).FirstOrDefault();
+                if (user == null)
+                {
+                    return BadRequest("User does not Exists");
+                }
 
-            return CreatedAtRoute("DefaultApi", new { id = transaction.transaction_id }, transaction);
+                transaction.flight_number = trans_pass.flight_number;
+                transaction.booking_date = trans_pass.booking_date;
+                transaction.number_of_seats = trans_pass.number_of_seats;
+                transaction.seat_type = trans_pass.seat_type;
+                transaction.travel_date = trans_pass.travel_date;
+                transaction.amount = trans_pass.amount;
+                transaction.user_Id = user.userid;
+                db.Transactions.Add(transaction);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    return NotFound();
+                }
+                card = trans_pass.carddetails;
+                card.userid = user.userid;
+                db.credit_card.Add(card);
+                var last_trans = db.Transactions.ToList().Last();
+                for (int i = 0; i < trans_pass.passengers.Length; i++)
+                {
+                    Passenger_obj.transaction_id = last_trans.transaction_id;
+                    Passenger_obj.email = trans_pass.contact_email;
+                    Passenger_obj.contact = trans_pass.contact_no;
+                    Passenger_obj.seatno = trans_pass.seatarray[i];
+                    Passenger_obj.Name = trans_pass.passengers[i].firstname;
+                    Passenger_obj.age = trans_pass.passengers[i].age;
+                    db.passengers.Add(Passenger_obj);
+                }
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    return NotFound();
+                }
+                return CreatedAtRoute("DefaultApi", new { id = transaction.transaction_id }, transaction);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+            
         }
     }
 }

@@ -18,8 +18,14 @@ namespace new_airline_api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return Ok(entity.sp_getseats(flightnumber, date));
-        }
-      
+            try
+            {
+                return Ok(entity.sp_getseats(flightnumber, date));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }  
+        }   
     }
 }

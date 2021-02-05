@@ -5,7 +5,7 @@ using System.Web;
 
 namespace new_airline_api.Models
 {
-    public class flight_master_schedule
+    public class FlightMaster_n_Schedule
     {
         public int flight_number { get; set; }
         public string departure_location { get; set; }

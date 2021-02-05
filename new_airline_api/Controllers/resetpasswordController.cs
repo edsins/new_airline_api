@@ -9,42 +9,48 @@ using System.Web.Http;
 
 namespace new_airline_api.Controllers
 {
-    public class resetpasswordController : ApiController
+    public class ResetPasswordController : ApiController
     {
         private new_airlineEntities db = new new_airlineEntities();
         [HttpPost]
-        public IHttpActionResult resetpassword(userlogin u)
+        public IHttpActionResult resetpassword(Userlogin u)
         {
-            var user = db.User_Master.Where(x => x.email_id == u.email).FirstOrDefault();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (user != null)
+            try
             {
-                var userobj = db.user_otp.Where(x => x.userid == user.userid).FirstOrDefault();
-                if(userobj==null)
+                var user = db.User_Master.Where(x => x.email_id == u.email).FirstOrDefault();
+                if (user != null)
                 {
-                    return BadRequest("NOT ALLOWED");
-                }
-                user.password = BCrypt.Net.BCrypt.HashPassword(u.password);
-                db.Entry(user).State = EntityState.Modified;
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    return NotFound();
-                }
+                    var userobj = db.user_otp.Where(x => x.userid == user.userid).FirstOrDefault();
+                    if(userobj==null)
+                    {
+                        return BadRequest("NOT ALLOWED");
+                    }
+                    user.password = BCrypt.Net.BCrypt.HashPassword(u.password);
+                    db.Entry(user).State = EntityState.Modified;
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        return NotFound();
+                    }
                 
-                return Ok("Password Changed");
+                    return Ok("Password Changed");
 
+                }
+                else
+                {
+                    return BadRequest("Wrong Email");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                return BadRequest("Wrong Email");
+                return BadRequest(ex.ToString());
             }
 
         }

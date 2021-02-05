@@ -5,7 +5,7 @@ using System.Web;
 
 namespace new_airline_api.Models
 {
-    public class bookHistory
+    public class BookHistory
     {
         public int transaction_id { get; set; }
         public Nullable<int> flight_number { get; set; }
