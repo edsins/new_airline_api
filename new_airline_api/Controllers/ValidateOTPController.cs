@@ -12,20 +12,20 @@ namespace new_airline_api.Controllers
     {
         private new_airlineEntities db = new new_airlineEntities();
         [HttpPost]
-        public IHttpActionResult validateOTP(string email, int otp)
+        public IHttpActionResult validateOTP(validateotp obj)
         {
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var user = db.User_Master.Where(x => x.email_id == email).FirstOrDefault();
+            var user = db.User_Master.Where(x => x.email_id == obj.email).FirstOrDefault();
             if(user==null)
             {
                 return BadRequest("Email ID not Registered");
             }
             var userobj = db.user_otp.Where(x => x.userid == user.userid).FirstOrDefault();
-            if(userobj.otp==otp)
+            if (userobj.otp.ToString() == obj.otp.ToString())
             {
                 return Ok("verified");
             }
