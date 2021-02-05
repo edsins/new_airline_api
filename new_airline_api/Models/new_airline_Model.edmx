@@ -9,8 +9,8 @@
           <Key>
             <PropertyRef Name="username" />
           </Key>
-          <Property Name="username" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="password" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="cancellation">
           <Key>
@@ -192,7 +192,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_otp__userid__09A971A2">
+        <Association Name="FK__user_otp__userid__17F790F9">
           <End Role="User_Master" Type="Self.User_Master" Multiplicity="0..1" />
           <End Role="user_otp" Type="Self.user_otp" Multiplicity="*" />
           <ReferentialConstraint>
@@ -271,7 +271,7 @@
             <End Role="User_Master" EntitySet="User_Master" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_otp__userid__09A971A2" Association="Self.FK__user_otp__userid__09A971A2">
+          <AssociationSet Name="FK__user_otp__userid__17F790F9" Association="Self.FK__user_otp__userid__17F790F9">
             <End Role="User_Master" EntitySet="User_Master" />
             <End Role="user_otp" EntitySet="user_otp" />
           </AssociationSet>
@@ -284,8 +284,8 @@
           <Key>
             <PropertyRef Name="username" />
           </Key>
-          <Property Name="username" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="cancellation">
           <Key>

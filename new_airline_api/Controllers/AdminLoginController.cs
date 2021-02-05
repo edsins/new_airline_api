@@ -14,14 +14,14 @@ namespace new_airline_api.Controllers
         [HttpPost]
         public IHttpActionResult adminloginvalid(userlogin u)
         {
-            var admin = db.admins.Where(x => x.username == u.email).FirstOrDefault();
+            var admin = db.admins.Where(x => x.username == u.email && x.password==u.password).FirstOrDefault();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             if (admin != null)
             {
-                bool isValid = BCrypt.Net.BCrypt.Verify(u.password, admin.password);
+                bool isValid = true;
                 if (!isValid)
                 {
                     return BadRequest("Invalid Credentials");
