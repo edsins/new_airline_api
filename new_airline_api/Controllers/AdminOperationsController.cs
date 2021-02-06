@@ -91,7 +91,13 @@ namespace new_airline_api.Controllers
                 flight_with_schedule.departure_time = flight_Master.departure_time;
                 flight_with_schedule.arrival_time = flight_Master.arrival_time;
                 flight_with_schedule.duration = flight_Master.duration;
-
+                var Flight_cost = db.flight_cost.Where(x => x.flight_number == id).FirstOrDefault();
+                if(Flight_cost!=null)
+                {
+                    flight_with_schedule.economy_cost = Flight_cost.economy_price;
+                    flight_with_schedule.business_cost = Flight_cost.business_price;
+                    
+                }
                 return Ok(flight_with_schedule);
             }
             catch(Exception ex)
@@ -124,6 +130,20 @@ namespace new_airline_api.Controllers
                 flight_Master.arrival_time = flight_with_schedule.arrival_time;
                 flight_Master.duration = flight_with_schedule.duration;
 
+                var Flight_cost = db.flight_cost.Where(x => x.flight_number == flight_with_schedule.flight_number).FirstOrDefault();
+                if(Flight_cost!=null)
+                {
+                    Flight_cost.economy_price = flight_with_schedule.economy_cost;
+                    Flight_cost.business_price = flight_with_schedule.business_cost;
+                    db.Entry(Flight_cost).State = EntityState.Modified;
+                }
+                else
+                {
+                    Flight_cost.economy_price = flight_with_schedule.economy_cost;
+                    Flight_cost.business_price = flight_with_schedule.business_cost;
+                    db.flight_cost.Add(Flight_cost);
+                }
+                
                 var weekdata = from Flight_schedule in db.flight_schedule
                                where Flight_schedule.flight_number == id
                                select Flight_schedule;
@@ -202,6 +222,7 @@ namespace new_airline_api.Controllers
             }
             try
             {
+                flight_cost Flight_cost = new flight_cost();
                 Flight_Master flight_Master = new Flight_Master();
                 flight_schedule flight_Schedule = new flight_schedule();
                 flight_Master.flight_number = addflight.flight_number;
@@ -210,7 +231,12 @@ namespace new_airline_api.Controllers
                 flight_Master.departure_time = addflight.departure_time;
                 flight_Master.arrival_time = addflight.arrival_time;
                 flight_Master.duration = addflight.duration;
+
                 db.Flight_Master.Add(flight_Master);
+                Flight_cost.flight_number = addflight.flight_number;
+                Flight_cost.economy_price = addflight.economy_cost;
+                Flight_cost.business_price = addflight.business_cost;
+                db.flight_cost.Add(Flight_cost);
                 try
                 {
                     db.SaveChanges();
@@ -297,6 +323,12 @@ namespace new_airline_api.Controllers
                 {
                     return NotFound();
                 }
+                var flight = db.flight_cost.Where(x => x.flight_number == id).FirstOrDefault();
+                if(flight!=null)
+                {
+                    db.flight_cost.Remove(flight);
+                }
+               
                 var weekdata = from Flight_Schedule in db.flight_schedule
                                where Flight_Schedule.flight_number == id
                                select Flight_Schedule;

@@ -19,6 +19,8 @@ namespace new_airline_api.Models
         public bool Sunday { get; set; }
         public System.TimeSpan departure_time { get; set; }
         public System.TimeSpan arrival_time { get; set; }
-        public System.TimeSpan duration { get; set; }    
+        public System.TimeSpan duration { get; set; }
+        public decimal business_cost { get; set; }
+        public decimal economy_cost { get; set; }
     }
 }
