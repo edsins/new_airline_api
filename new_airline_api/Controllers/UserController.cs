@@ -36,11 +36,11 @@ namespace new_airline_api.Controllers
 
                     return Request.CreateResponse(HttpStatusCode.OK, user);
                 }
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Email-Id already Exists");
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Email-Id already Exists");
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.ToString());
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
            

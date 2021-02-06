@@ -38,7 +38,7 @@ namespace new_airline_api.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.ToString());
+                return InternalServerError(ex);
             }
 
         }
