@@ -39,25 +39,11 @@ namespace new_airline_api.Controllers
                 transaction.amount = trans_pass.amount;
                 transaction.user_Id = user.userid;
                 db.Transactions.Add(transaction);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    return NotFound();
-                }
+               
                 card = trans_pass.carddetails;
                 card.userid = user.userid;
                 db.credit_card.Add(card);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    return NotFound();
-                }
+                
                 var last_trans = db.Transactions.ToList().Last();
                 for (int i = 0; i < trans_pass.passengers.Length; i++)
                 {
@@ -68,17 +54,17 @@ namespace new_airline_api.Controllers
                     Passenger_obj.seatno = trans_pass.seatarray[i];
                     Passenger_obj.Name = trans_pass.passengers[i].firstname;
                     Passenger_obj.age = trans_pass.passengers[i].age;
-                    db.passengers.Add(Passenger_obj);
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch(Exception ex)
-                    {
-                        return BadRequest(ex.ToString());
-                    }
+                    db.passengers.Add(Passenger_obj); 
                 }
-                
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.ToString());
+                }
+
                 return CreatedAtRoute("DefaultApi", new { id = transaction.transaction_id }, transaction);
             }
             catch(Exception ex)
