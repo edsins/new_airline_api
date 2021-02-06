@@ -64,7 +64,14 @@ namespace new_airline_api.Controllers
                     Passenger_obj.age = trans_pass.passengers[i].age;
                     db.passengers.Add(Passenger_obj); 
                 }
-             
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.ToString());
+                }
 
                 return CreatedAtRoute("DefaultApi", new { id = transaction.transaction_id }, transaction);
             }
