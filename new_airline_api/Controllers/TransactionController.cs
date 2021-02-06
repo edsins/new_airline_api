@@ -39,7 +39,15 @@ namespace new_airline_api.Controllers
                 transaction.amount = trans_pass.amount;
                 transaction.user_Id = user.userid;
                 db.Transactions.Add(transaction);
-               
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.ToString());
+                }
+
                 card = trans_pass.carddetails;
                 card.userid = user.userid;
                 db.credit_card.Add(card);
@@ -56,14 +64,7 @@ namespace new_airline_api.Controllers
                     Passenger_obj.age = trans_pass.passengers[i].age;
                     db.passengers.Add(Passenger_obj); 
                 }
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.ToString());
-                }
+             
 
                 return CreatedAtRoute("DefaultApi", new { id = transaction.transaction_id }, transaction);
             }
